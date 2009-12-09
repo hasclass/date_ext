@@ -10,10 +10,12 @@ class WeekdayTest < Test::Unit::TestCase
       @fri_next = Weekday.new(2009,12,11)
       @range = (@fri...@fri_next)
     }
+    
     should "have 5 elements" do
       assert_equal 5, @range.to_a.length
     end
-    should "all be weekdays"
+    
+    should "all be weekdays" do
       assert @range.to_a.all?{|wd| wd.is_a?(Weekday)}
     end
   end
