@@ -4,11 +4,11 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "date_extensions"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.name = "date_ext"
+    gem.summary = %Q{date extensions helps you work with weekdays, workdays, holidays, months, weeks, etc.}
+    gem.description = %Q{Ruby classes for weekday, month, etc.}
     gem.email = "sebastian.burkhard@gmail.com"
-    gem.homepage = "http://github.com/hasclass/date_extensions"
+    gem.homepage = "http://github.com/hasclass/test"
     gem.authors = ["hasclass"]
     gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
@@ -31,6 +31,7 @@ begin
     test.libs << 'test'
     test.pattern = 'test/**/*_test.rb'
     test.verbose = true
+    test.rcov_opts = %w{--rails --exclude osx\/objc,gems\/,spec\/,features\/ --aggregate coverage.data}
   end
 rescue LoadError
   task :rcov do
@@ -47,7 +48,7 @@ Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "date_extensions #{version}"
+  rdoc.title = "test #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
