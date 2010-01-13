@@ -40,7 +40,6 @@ class Month
     @year = year.to_i     
     @month = month.to_i
   end
-  
 
   #   If _months_ is a Numeric value, create a new Month object that is x months earlier than the current one.
   #
@@ -93,20 +92,12 @@ class Month
   
   # Returns the last weekday (everyday except saturday or sunday) of the current month.
   def last_cday
-    date = last_day
-    while date.cwday > 5
-      date = date -= 1
-    end
-    date
+    last_weekday
   end
   
   # Returns the first weekday (everyday except saturday or sunday) of the current month.
   def first_cday
-    date = first_day 
-    while date.cwday > 5
-      date = date += 1
-    end
-    date
+    first_weekday
   end
   
   # Returns the first commercial weekday with the given weekday number
@@ -117,7 +108,16 @@ class Month
     end
     date
   end
-  
+
+  def first_weekday
+    d = first_day
+    Weekday.civil_or_newer(d.year, d.month, d.day)
+  end
+
+  def last_weekday
+    last_day.to_weekday
+  end
+
   # Returns the last day of current month as a Date object.
   def last_day
     first_of_next_month = first_day + 32
@@ -135,9 +135,3 @@ class Month
   end  
 end
 
-class Date
-  # Creates a Month object of the current month
-  def to_month
-    Month.new(self)
-  end
-end

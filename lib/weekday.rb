@@ -2,21 +2,39 @@ module WeekDayCoreExt
   def is_weekday?
     self.cwday < 6
   end
-  
+
+  # Returns a Weekday. Doesn't raise an exception if not a weekday, 
+  # but returns the most previous weekday.
+  #
   def to_weekday
-    self.is_a?(Weekday) ? self : Weekday.new(self.year, self.month, self.day)
+    Weekday.civil(self.year, self.month, self.day)
+  end
+
+  # Returns a Weekday. Raises Exception if not a weekday
+  #
+  def to_weekday!
+    Weekday.civil!(self.year, self.month, self.day)
   end
 end
 
+class Weekday < Date
+  OLDER = '-'
+  NEWER = '+'
 
-
-class Weekday < Date  
-  
-  def initialize(ajd=0, of=0, sg=ITALY) 
-    super(ajd, of, sg)
-    raise 'Is not a weekday' unless self.is_weekday?
+  def self.civil(y=-4712, m=1, d=1, sg=ITALY)
+    weekday_or_nearest(y,m,d,OLDER)
   end
-  
+
+  def self.civil_or_newer(y=-4712, m=1, d=1, sg=ITALY)
+    weekday_or_nearest(y,m,d,NEWER)
+  end
+
+  def self.civil!(y=-4712, m=1, d=1, sg=ITALY)
+    day = new(y,m,d)
+    raise "Is not a Weekday" unless day.is_weekday?
+    day
+  end
+
   def -(x)
     if x.is_a?(Numeric)
 #      weekend_offset = 0
@@ -33,7 +51,7 @@ class Weekday < Date
       raise TypeError, 'expected numeric or date'
     end
   end
-  
+
   def +(x)
     if x.is_a?(Numeric)
       days = x % 5
@@ -49,5 +67,18 @@ class Weekday < Date
 
   def self.today
     super.class.today.to_weekday
+  end
+
+  def self.today!
+    super.class.today.to_weekday!
+  end
+
+private 
+  def self.weekday_or_nearest(y,m,d,operator = OLDER)
+    day = Date.new(y,m,d)
+    while !day.is_weekday?
+      day = day.send(operator, 1)
+    end
+    day.to_weekday!
   end
 end

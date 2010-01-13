@@ -5,6 +5,19 @@ require File.dirname(__FILE__) + '/test_helper'
 
 class MonthTest < Test::Unit::TestCase
   
+  context "December" do
+    setup {
+      @month = Month.new(2011,12)
+    }
+    should "have last_day 2011-12-31" do
+      assert_equal Date.new(2011,12,31), @month.last_day
+    end
+    should "have last_weekday 2011-12-30" do
+      assert_equal Date.new(2011,12,30), @month.last_weekday
+    end
+
+  end
+  
   context "Date#to_month" do
     setup do 
       @d = Date.new(2009,2,1)

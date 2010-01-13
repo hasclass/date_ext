@@ -1,8 +1,5 @@
 require File.dirname(__FILE__) + '/test_helper'
 
-
-
-
 class WeekdayTest < Test::Unit::TestCase
   context "range friday ... friday_next_week" do
     setup {
@@ -10,35 +7,48 @@ class WeekdayTest < Test::Unit::TestCase
       @fri_next = Weekday.new(2009,12,11)
       @range = (@fri...@fri_next)
     }
-    
+
     should "have 5 elements" do
       assert_equal 5, @range.to_a.length
     end
-    
+
     should "all be weekdays" do
       assert @range.to_a.all?{|wd| wd.is_a?(Weekday)}
     end
   end
-  
+
   context "Weekday methods" do
     should "return a Weekday object on #new" do
       assert_equal Weekday, Weekday.new(2009,12,3).class
     end
-    
+
     should "return a Weekday object on #today" do
       assert_equal Weekday, Weekday.today.class
     end
   end
-  
+
+  context "On weekends" do
+    should "return previous friday if #civil on weekend" do
+      assert_equal Weekday.civil(2009,12,4), Weekday.civil(2009,12,5)
+      assert_equal Weekday.civil(2009,12,4), Weekday.civil(2009,12,6)
+    end
+
+    should "return next monday if #civil_or_newer on weekend" do
+      assert_equal Weekday.civil(2009,12,7), Weekday.civil_or_newer(2009,12,5)
+      assert_equal Weekday.civil(2009,12,7), Weekday.civil_or_newer(2009,12,6)
+    end
+  end
+
   context "Weekdays" do
     setup {
       @thu = Weekday.new(2009,12,3)
       @fri = Weekday.new(2009,12,4)
-      
+
       @mon = Weekday.new(2009,12,7)
       @tue = Weekday.new(2009,12,8)
       @wed = Weekday.new(2009,12,9)
     }
+
     context "Wednesday" do
       should "be valid" do
         assert Weekday, @wed
@@ -59,6 +69,7 @@ class WeekdayTest < Test::Unit::TestCase
         assert_equal Weekday.new(2009,12,2), @wed - 5
       end
     end
+
     context "Monday" do
       should "be valid" do
         assert Weekday, @mon
