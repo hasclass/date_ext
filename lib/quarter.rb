@@ -32,8 +32,8 @@ class Quarter
 
   def months; (first_month..last_month).to_a; end
 
-  def first_month; Month.new(@year,@quarter); end
-  def last_month; Month.new(@year,@quarter+2); end
+  def first_month; Month.new(@year,((@quarter - 1)*3)+1); end
+  def last_month; Month.new(@year,((@quarter - 1)*3)+3); end
 
   def dates; (first_date..last_date).to_a; end
 

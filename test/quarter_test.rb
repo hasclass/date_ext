@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/test_helper'
 
 class QuarterTest < Test::Unit::TestCase
 
-  context "Quarter 2009" do
+  context "Quarter 2009,1" do
     setup {
       @quarter = Quarter.new(2009,1)
     }
@@ -23,6 +23,18 @@ class QuarterTest < Test::Unit::TestCase
     end
     should "have 2009-12-31 as last_weekday" do
       assert_equal Date.new(2009,3,31), @quarter.last_weekday
+    end
+  end
+  
+  context "Quarter 2009,1" do
+    setup {
+      @quarter = Quarter.new(2009,4)
+    }
+    should "have 2009-10 as first_month" do
+      assert_equal Month.new(2009,10), @quarter.first_month
+    end
+    should "have 2009-12 as last_month" do
+      assert_equal Month.new(2009,12), @quarter.last_month
     end
   end
 
