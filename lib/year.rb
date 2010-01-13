@@ -1,8 +1,14 @@
 class Year
+  include Comparable
+  
   attr_accessor :year
   
   def initialize(year)
     @year = year.to_i
+  end
+
+  def <=>(other)
+    self.year <=> other.year
   end
 
   def -(x)

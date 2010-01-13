@@ -1,4 +1,6 @@
 class Quarter
+  include Comparable
+
   attr_accessor :year, :quarter
   
   def initialize(year, quarter)
@@ -10,25 +12,40 @@ class Quarter
     Year.new(@year)
   end
 
-# def -(x)
-#   if x.is_a?(Numeric)
-#     return self.class.new(@year - x)
-#   elsif x.is_a?(Quarter) 
-#     return @year - x.year
-#   else
-#     raise TypeError, 'expected numeric or year'
-#   end
-# end
-#
-# def +(x)
-#   if x.is_a?(Numeric)
-#     return self.class.new(@year + x)
-#   elsif x.is_a?(Quarter) 
-#     return @year + x.year
-#   else
-#     raise TypeError, 'expected numeric or year'
-#   end
-# end
+  def <=>(other)
+    self.first_date <=> other.first_date
+  end
+
+  def -(x)
+    if x.is_a?(Numeric)
+      y = year - (x / 4)
+      q = quarter - (x % 4)
+      if q < 1
+        y -= 1
+        q += 4
+      end 
+      return Quarter.new(y, q)
+    else
+      raise TypeError, 'expected numeric'
+    end
+  end
+ 
+  def +(x)
+    if x.is_a?(Numeric)
+      y = year + (x / 4)
+      q = quarter + (x % 4)
+      if q > 4
+        q -= 4
+        y += 1
+      end
+      return Quarter.new(y, q)      
+    else
+      raise TypeError, 'expected numeric'
+    end
+  end
+
+  def next; self + 1; end
+  def previous; self - 1; end
 
   def months; (first_month..last_month).to_a; end
 

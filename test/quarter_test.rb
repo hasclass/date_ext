@@ -1,6 +1,33 @@
 require File.dirname(__FILE__) + '/test_helper'
 
 class QuarterTest < Test::Unit::TestCase
+  context "#next #previous" do
+    setup {
+      @quarter = Quarter.new(2009,1)
+    }
+    
+    should "- 1" do
+      assert_equal Quarter.new(2008,4), @quarter - 1
+    end
+    should "- 2" do
+      assert_equal Quarter.new(2008,3), @quarter - 2
+    end
+    should "+ 1" do
+      assert_equal Quarter.new(2009,2), @quarter + 1
+    end
+    should "+ 4" do
+      assert_equal Quarter.new(2010,1), @quarter + 4
+    end
+    
+    should "#next" do
+      assert_equal Quarter.new(2009,2), @quarter.next
+    end
+
+    should "#previous" do
+      assert_equal Quarter.new(2008,4), @quarter.previous
+    end
+
+  end
 
   context "Quarter 2009,1" do
     setup {
