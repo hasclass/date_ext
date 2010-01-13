@@ -26,4 +26,11 @@ class QuarterTest < Test::Unit::TestCase
     end
   end
 
+  context "#new" do
+    should "accept year and quarter as string" do
+      @quarter = Quarter.new("2009", "1")
+      assert_equal 2009, @quarter.year
+      assert_equal 1, @quarter.quarter
+    end
+  end
 end

@@ -39,6 +39,12 @@ class YearTest < Test::Unit::TestCase
     should "have 2011-12-30 as last_weekday" do
       assert_equal Date.new(2011,12,30), @year.last_weekday
     end
-
   end
+  
+  context "#new" do
+    should "accept year and quarter as string" do
+      @year = Year.new("2009")
+      assert_equal 2009, @year.year
+    end
+  end  
 end

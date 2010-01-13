@@ -2,7 +2,7 @@ class Year
   attr_accessor :year
   
   def initialize(year)
-    @year = year
+    @year = year.to_i
   end
 
   def -(x)
