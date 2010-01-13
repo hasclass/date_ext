@@ -109,6 +109,8 @@ class Month
     date
   end
 
+  def weekdays; (first_weekday..last_weekday).to_a; end
+
   def first_weekday
     d = first_day
     Weekday.civil_or_newer(d.year, d.month, d.day)

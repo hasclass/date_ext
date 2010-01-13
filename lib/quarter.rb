@@ -40,8 +40,8 @@ class Quarter
   def first_date; first_month.first_day; end
   def last_date; last_month.last_day; end
 
-  def weekdays; (first_weekday..last_date).to_a; end
+  def weekdays; (first_weekday..last_weekday).to_a; end
 
   def first_weekday; first_month.first_weekday; end
-  def last_weekday; last_weekday.last_weekday; end
+  def last_weekday; last_month.last_weekday; end
 end

@@ -15,8 +15,14 @@ class QuarterTest < Test::Unit::TestCase
     should "have 2009-01-01 as first_date" do
       assert_equal Date.new(2009,1,1), @quarter.first_date
     end
+    should "have 2009-01-01 as first_weekday" do
+      assert_equal Date.new(2009,1,1), @quarter.first_weekday
+    end
     should "have 2009-12-31 as last_date" do
       assert_equal Date.new(2009,3,31), @quarter.last_date
+    end
+    should "have 2009-12-31 as last_weekday" do
+      assert_equal Date.new(2009,3,31), @quarter.last_weekday
     end
   end
 

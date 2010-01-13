@@ -110,7 +110,7 @@ class MonthTest < Test::Unit::TestCase
   end
 
 
-  context "new" do
+  context "#new from date" do
     setup do 
       @d = Date.new(2009,2,1)
       @m = Month.new(@d)
@@ -123,23 +123,19 @@ class MonthTest < Test::Unit::TestCase
   end
 
 
-  context "new" do
+  context "#new" do
     setup { @m = Month.new(2009,2)}
     
-    should "have correct flag" do
+    should "assign year, month" do
       assert_equal @m.year, 2009
       assert_equal @m.month, 2    
-    end    
-  end
-  
-  context "new" do
-    setup { @m = Month.new("2009","02")}
+    end
     
-    should "initialize" do
-      assert_equal @m.year, 2009
-      assert_equal @m.month, 2    
-    end    
+    should "#weekdays have first and last_weekdays" do
+      assert_equal @m.first_weekday, @m.weekdays.first
+      assert_equal @m.last_weekday, @m.weekdays.last
+    end
+    
   end
-  
   
 end
