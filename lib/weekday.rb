@@ -66,11 +66,11 @@ class Weekday < Date
   end
 
   def self.today
-    super.class.today.to_weekday
+    Date.today.to_weekday
   end
 
   def self.today!
-    super.class.today.to_weekday!
+    Date.today.to_weekday!
   end
 
 private 
